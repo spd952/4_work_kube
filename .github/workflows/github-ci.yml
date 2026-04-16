@@ -26,8 +26,8 @@ jobs:
       - name: Upload binary to artifact
         uses: actions/upload-artifact@v4
         with:
-          name: latin-checker-binary
-          path: usr/bin/latin-checker
+          name: untitled1-binary
+          path: usr/bin/untitled1
           retention-days: 1
 
   Test:
@@ -50,11 +50,11 @@ jobs:
       - name: Download binary from artifact
         uses: actions/download-artifact@v4
         with:
-          name: latin-checker-binary
+          name: untitled1-binary
           path: usr/bin
 
       - name: Give permissions to binary
-        run: chmod +x latin-checker
+        run: chmod +x untitled1
         working-directory: ./usr/bin
 
       - name: Run tests
@@ -81,7 +81,7 @@ jobs:
       - name: Download binary from artifact
         uses: actions/download-artifact@v4
         with:
-          name: latin-checker-binary
+          name: untitled1-binary
           path: usr/bin
 
       - name: Build package
@@ -108,22 +108,22 @@ jobs:
       - name: Download deb-package
         uses: actions/download-artifact@v4
         with:
-          name: latin-checker-deb-package
+          name: untitled1-deb-package
           path: ./
 
       - name: Build docker image
         run: |
-          docker build -t nosmok1ng/latin-checker:1.0.0 -f cicd/Dockerfile .
-          docker tag nosmok1ng/latin-checker:1.0.0 nosmok1ng/latin-checker:latest
+          docker build -t ilgringoartur/untitled1:1.0.0 -f cicd/Dockerfile .
+          docker tag ilgringoartur/untitled1:1.0.0 ilgringoartur/untitled1:latest
 
       - name: Run container
         run: |
-          echo "3\n1 2 3\n2 3 1\n3 1 2" | docker run -i nosmok1ng/latin-checker:1.0.0
+          echo "3\n1 2 3\n2 3 1\n3 1 2" | docker run -i ilgringoartur/untitled1:1.0.0
 
       - name: Log in to DockerHub
         run: docker login -u ${{ secrets.DOCKERHUB_NAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Push to DockerHub
         run: |
-          docker push nosmok1ng/latin-checker:1.0.0
-          docker push nosmok1ng/latin-checker:latest
+          docker push ilgringoartur/untitled1:1.0.0
+          docker push ilgringoartur/untitled1:latest
