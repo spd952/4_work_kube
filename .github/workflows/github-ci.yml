@@ -95,7 +95,6 @@ jobs:
           path: untitled1_1.0.0_amd64.deb
 
   Deploy:
-      Deploy:
     needs: Package
     runs-on: ubuntu-latest
 
@@ -112,22 +111,9 @@ jobs:
           name: untitled1-deb-package
           path: ./
 
-      - name: Debug - check downloaded package
-        run: |
-          echo "Current directory: $(pwd)"
-          echo "All files in current directory:"
-          ls -la
-          echo "Looking for .deb files:"
-          find . -name "*.deb" -type f
-          echo "Checking if untitled1_1.0.0_amd64.deb exists:"
-          ls -la untitled1_1.0.0_amd64.deb || echo "Package not found!"
-
       - name: Build docker image
         run: |
-          docker build \
-            --build-arg PACKAGE_NAME=untitled1_1.0.0_amd64.deb \
-            -t ilgringoartur/untitled1:1.0.0 \
-            -f cicd/Dockerfile .
+          docker build -t ilgringoartur/untitled1:1.0.0 -f cicd/Dockerfile .
           docker tag ilgringoartur/untitled1:1.0.0 ilgringoartur/untitled1:latest
 
       - name: Run container
