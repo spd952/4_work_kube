@@ -91,8 +91,8 @@ jobs:
       - name: Upload package
         uses: actions/upload-artifact@v4
         with:
-          name: latin-checker-deb-package
-          path: latin-checker_1.0_amd64.deb
+          name: untitled1-deb-package
+          path: untitled1_1.0.0_amd64.deb
 
   Deploy:
     needs: Package
