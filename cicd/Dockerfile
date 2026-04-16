@@ -8,10 +8,15 @@ COPY ${PACKAGE_NAME} /tmp/
 
 WORKDIR /tmp
 
-# Устанавливаем пакет с автоматическим разрешением зависимостей
-RUN apt-get update && \
-    apt-get install -y ./${PACKAGE_NAME} && \
-    apt-get clean && \
-    rm -rf /var/lib/apt/lists/*
+# Диагностика и установка
+RUN echo "=== Checking package ===" && \
+    ls -la ${PACKAGE_NAME} && \
+    echo "=== Package info ===" && \
+    dpkg --info ${PACKAGE_NAME} && \
+    echo "=== Package dependencies ===" && \
+    dpkg -I ${PACKAGE_NAME} | grep Depends && \
+    echo "=== Installing package ===" && \
+    apt-get update && \
+    apt-get install -y /tmp/${PACKAGE_NAME}
 
 ENTRYPOINT ["untitled1"]
