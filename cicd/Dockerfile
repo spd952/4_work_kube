@@ -8,15 +8,15 @@ COPY ${PACKAGE_NAME} /tmp/
 
 WORKDIR /tmp
 
-# Диагностика и установка
-RUN echo "=== Checking package ===" && \
-    ls -la ${PACKAGE_NAME} && \
-    echo "=== Package info ===" && \
-    dpkg --info ${PACKAGE_NAME} && \
-    echo "=== Package dependencies ===" && \
-    dpkg -I ${PACKAGE_NAME} | grep Depends && \
-    echo "=== Installing package ===" && \
-    apt-get update && \
-    apt-get install -y /tmp/${PACKAGE_NAME}
+# Распаковываем deb-пакет без установки
+RUN apt-get update && \
+    apt-get install -y dpkg && \
+    dpkg-deb -x ${PACKAGE_NAME} / && \
+    apt-get clean
+
+# Делаем бинарник исполняемым
+RUN chmod +x /usr/bin/untitled1 2>/dev/null || \
+    chmod +x /usr/local/bin/untitled1 2>/dev/null || \
+    echo "Binary not found"
 
 ENTRYPOINT ["untitled1"]
