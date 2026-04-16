@@ -26,8 +26,8 @@ jobs:
       - name: Upload binary to artifact
         uses: actions/upload-artifact@v4
         with:
-          name: untitled1-binary
-          path: usr/bin/untitled1
+         name: latin-checker-binary
+         path: usr/bin/latin-checker
           retention-days: 1
 
   Test:
