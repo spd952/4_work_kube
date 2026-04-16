@@ -1,4 +1,4 @@
-ARG PACKAGE_NAME="latin-checker_1.0_amd64.deb"
+ARG PACKAGE_NAME="untitled1_1.0.0_amd64.deb"
 
 FROM ubuntu:latest
 ARG PACKAGE_NAME
@@ -12,6 +12,6 @@ RUN apt-get update && \
     apt-get install -y dpkg-dev && \
     dpkg -i ${PACKAGE_NAME} || true && \
     apt-get -f install -y && \
-    chmod +x /usr/bin/latin-checker
+    chmod +x /usr/bin/untitled1
 
-ENTRYPOINT ["latin-checker"]
+ENTRYPOINT ["untitled1"]
