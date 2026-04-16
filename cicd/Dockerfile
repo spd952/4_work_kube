@@ -1,22 +1,16 @@
-ARG PACKAGE_NAME="untitled1_1.0.0_amd64.deb"
-
 FROM ubuntu:latest
-ARG PACKAGE_NAME
 
-# Копируем deb-пакет
-COPY ${PACKAGE_NAME} /tmp/
+# Создаём директорию для приложения
+RUN mkdir -p /app
 
-WORKDIR /tmp
+# Копируем бинарник из артефакта
+COPY usr/bin/untitled1 /app/untitled1
 
-# Распаковываем deb-пакет без установки
-RUN apt-get update && \
-    apt-get install -y dpkg && \
-    dpkg-deb -x ${PACKAGE_NAME} / && \
-    apt-get clean
+# Делаем исполняемым
+RUN chmod +x /app/untitled1
 
-# Делаем бинарник исполняемым
-RUN chmod +x /usr/bin/untitled1 2>/dev/null || \
-    chmod +x /usr/local/bin/untitled1 2>/dev/null || \
-    echo "Binary not found"
+# Устанавливаем рабочую директорию
+WORKDIR /app
 
-ENTRYPOINT ["untitled1"]
+# Запускаем приложение
+ENTRYPOINT ["/app/untitled1"]
