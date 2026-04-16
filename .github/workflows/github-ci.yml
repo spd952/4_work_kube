@@ -91,8 +91,8 @@ jobs:
       - name: Upload package
         uses: actions/upload-artifact@v4
         with:
-          name: latin-checker-deb-package
-          path: latin-checker_1.0_amd64.deb
+          name: untitled1-deb-package
+          path: untitled1_1.0.0_amd64.deb
 
   Deploy:
     needs: Package
@@ -108,22 +108,22 @@ jobs:
       - name: Download deb-package
         uses: actions/download-artifact@v4
         with:
-          name: latin-checker-deb-package
+          name: untitled1-deb-package
           path: ./
 
       - name: Build docker image
         run: |
-          docker build -t ilgringoartur/latin-checker:1.0.0 -f cicd/Dockerfile .
-          docker tag ilgringoartur/latin-checker:1.0.0 ilgringoartur/latin-checker:latest
+          docker build -t ilgringoartur/untitled1:1.0.0 -f cicd/Dockerfile .
+          docker tag ilgringoartur/untitled1:1.0.0 ilgringoartur/untitled1:latest
 
       - name: Run container
         run: |
-          echo "3\n1 2 3\n2 3 1\n3 1 2" | docker run -i ilgringoartur/latin-checker:1.0.0
+          echo "3\n1 2 3\n2 3 1\n3 1 2" | docker run -i ilgringoartur/untitled1:1.0.0
 
       - name: Log in to DockerHub
         run: docker login -u ${{ secrets.DOCKERHUB_NAME }} -p ${{ secrets.DOCKERHUB_TOKEN }}
 
       - name: Push to DockerHub
         run: |
-          docker push ilgringoartur/latin-checker:1.0.0
-          docker push ilgringoartur/latin-checker:latest
+          docker push ilgringoartur/untitled1:1.0.0
+          docker push ilgringoartur/untitled1:latest
