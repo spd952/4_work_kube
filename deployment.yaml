@@ -1,19 +1,18 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: my-app
+  name: cpu-cpp-app
 spec:
-  replicas: 2
+  replicas: 1
   selector:
     matchLabels:
-      app: my-app
+      app: cpu-cpp-app
   template:
     metadata:
       labels:
-        app: my-app
+        app: cpu-cpp-app
     spec:
       containers:
-      - name: my-app
-        image: your-dockerhub-username/my-app:latest
-        ports:
-        - containerPort: 8080
+      - name: cpu-cpp-app
+        image: cpu-cpp-app:latest
+        imagePullPolicy: IfNotPresent
