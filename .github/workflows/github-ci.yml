@@ -16,7 +16,7 @@ jobs:
       run: docker build -t ilgringoartur/cpu-cpp-app .
 
     - name: Push Docker
-      run: docker push your-dockerhub-username/my-app
+      run: docker push ilgringoartur/cpu-cpp-app
 
     - name: Deploy to Kubernetes
       run: |
